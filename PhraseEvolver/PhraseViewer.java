@@ -12,15 +12,12 @@ class PhaseViewer{
 class Population{
   Dna[] population;
 
-
   Population(String target,int length,int numberOfPopulation){
     population = new Dna[numberOfPopulation];
     for (int i=0 ; i < numberOfPopulation ; i++){
       population[i] = new Dna(target,length);
     }
   }
-
-
 }
 
 
@@ -34,9 +31,9 @@ String target;
     for(int i=0 ; i< this.phrase.length ; i++){
       phrase[i] = (char)ThreadLocalRandom.current().nextInt(65,122);
     }
-    System.out.println(phrase);
-    this.CalcFitness();
-    System.out.println(fitness);
+    System.out.println(this.phrase);
+    CalcFitness();
+    System.out.println(this.fitness);
   }
 
 void CalcFitness(){
