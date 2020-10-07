@@ -1,9 +1,9 @@
 import java.util.concurrent.*;
 class PhaseViewer{
   public static void main(String[] args){
-    String targetPhrase = "To be or not to be.That is the Question!";
+    String targetPhrase = "hello";
     int targetLength = targetPhrase.length();
-    int population = 5;
+    int population = 10;
     Population pop = new Population(targetPhrase,targetLength,population);
   }
 }
@@ -14,7 +14,7 @@ class Population{
 
 
   Population(String target,int length,int numberOfPopulation){
-    population = new Dna[length];
+    population = new Dna[numberOfPopulation];
     for (int i=0 ; i < numberOfPopulation ; i++){
       population[i] = new Dna(target,length);
     }
@@ -47,5 +47,20 @@ void CalcFitness(){
       }
     }
     this.fitness = count;
+  }
+
+
+  Dna CrossOver(Dna Partner){
+    int Partition = ThreadLocalRandom.current().nextInt(65,122);
+    Dna Child = new Dna(this.target,this.phrase.length);
+    for (int i=0 ; i < this.phrase.length ; i++){
+      if (i < Partition){
+        Child.phrase[i] = this.phrase[i];
+      }
+      else{
+        Child.phrase[i] = Partner.phrase[i];
+      }
+    }
+    return Child;
   }
 }
