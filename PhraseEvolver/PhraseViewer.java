@@ -48,7 +48,7 @@ void CalcFitness(){
 
 
   Dna CrossOver(Dna Partner){
-    int Partition = ThreadLocalRandom.current().nextInt(65,122);
+    int Partition = ThreadLocalRandom.current().nextInt(1,this.phrase.length);
     Dna Child = new Dna(this.target,this.phrase.length);
     for (int i=0 ; i < this.phrase.length ; i++){
       if (i < Partition){
