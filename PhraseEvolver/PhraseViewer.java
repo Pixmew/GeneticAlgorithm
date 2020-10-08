@@ -34,6 +34,7 @@ class Population{
   ArrayList<Dna> matingPool;
   int lengthOfPhrase;
   int bestfitness;
+  int bestindex;
   Dna BestPhrase;
   float MutationRate;
   Population(String target,int length,int numberOfPopulation ,float mutationRate){
@@ -81,11 +82,11 @@ void ShowBest(){
   for (int i =0 ;i < this.population.length ; i++){
      if (bestfitness < this.population[i].fitness){
        bestfitness = this.population[i].fitness;
-       bestindex = i;
+       this.bestindex = i;
        this.BestPhrase.phrase = this.population[i].phrase;
      }
   }
-  System.out.println(this.population[bestindex].phrase);
+  System.out.println(this.population[this.bestindex].phrase);
 }
 
 
@@ -113,7 +114,8 @@ boolean isDone(){
 void showInfo(int Gen){
   System.out.println("\n\n-------------------------------------------------------------------------------------");
   System.out.println("Number Of Generations : " + Gen);
-  System.out.println("Generated Phrase : " + this.population[bestindex].phrase);
+  System.out.println("Generated Phrase : ");
+  System.out.print(this.population[this.bestindex].phrase);
   System.out.println("\nEvolution is Over....");
   System.out.println("-----------------------------------------------------------------------------------------");
 }
