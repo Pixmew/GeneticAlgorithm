@@ -78,7 +78,7 @@ void Reproduction(){
 
 void ShowBest(){
   bestfitness = 0;
-  int bestindex = 0;
+  this.bestindex = 0;
   for (int i =0 ;i < this.population.length ; i++){
      if (bestfitness < this.population[i].fitness){
        bestfitness = this.population[i].fitness;
@@ -114,9 +114,9 @@ boolean isDone(){
 void showInfo(int Gen){
   System.out.println("\n\n-------------------------------------------------------------------------------------");
   System.out.println("Number Of Generations : " + Gen);
-  System.out.println("Generated Phrase : ");
+  System.out.print("Generated Phrase : ");
   System.out.print(this.population[this.bestindex].phrase);
-  System.out.println("\nEvolution is Over....");
+  System.out.println("\n\nEvolution is Over....");
   System.out.println("-----------------------------------------------------------------------------------------");
 }
 
