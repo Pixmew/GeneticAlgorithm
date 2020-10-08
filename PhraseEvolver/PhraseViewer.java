@@ -1,26 +1,42 @@
+//Import Statements for Random numbers Generation
 import java.util.concurrent.*;
 import java.util.*;
 
+//This is the Main Class which handels the Population Class
 class PhraseViewer{
-    public static void main(String[] args){
 
-       String targetPhrase = "To_be_or_not_to_be,That_is_the_question!";
+    public static void main(String[] args){
+       //This Stores the Phrase You want To Generate
+       String targetPhrase = "To be or not to be,That is the question!";
+       //This contains the number of Population of Evolutionary Phrases
        int population = 1000;
-       float mutationRate = 0.03f;
+       //This stores The mutation Rate which should be Very small Number
+       float mutationRate = 0.01f;
+       //Initializeing targetLength Variable to be the Length(Number of Character) of Phrase
        int targetLength = targetPhrase.length();
+       //Boolean Variable which keeps track That is to Evolve another Generation or Not
        boolean isDone = false;
 
-
+       //Generation the Actual population objects Which internally Keeps Track of number of Phrases to Evolve
        Population pop = new Population(targetPhrase,targetLength,population,mutationRate);
 
+       //This counts the number of Generations was Required to Evolve The Wanted Phrase
        int Generations = 0;
+       //This Loop Runs untill the Target Phrase is Evolved
        while (!isDone){
+           //This Function Calculates Fitness of All Available Population(Phrases)
            pop.CalcualateFitness();
+           //This Function Generates new Phrase By combining 2 Random Phrases
            pop.Reproduction();
+           //This Function Mutates The Newly Generated Phrases by very small amount to Maintain Varity and Not to Get Stuck with Same Phrases in the Whole population
            pop.mutation();
+           //Checks if the Target Phrase is Evolved or not to Exit the Loop
+           //returns True if Target Phrase is Evolved
            isDone = pop.isDone();
+           //Increment the count od Generations by 1
            Generations++;
          }
+         //When the Evolution of Phrases is completed then Show Result Summary
          pop.showInfo(Generations);
      }
 }
@@ -29,7 +45,7 @@ class PhraseViewer{
 
 
 
-
+//Class Population manages the Dna Objects(Phrases) and Performs Various Operation on it
 class Population{
     Dna[] population;
     int numOfPop;
