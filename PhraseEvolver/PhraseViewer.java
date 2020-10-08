@@ -11,7 +11,7 @@ class PhraseViewer{
        //This contains the number of Population of Evolutionary Phrases
        int population = 1000;
        //This stores The mutation Rate which should be Very small Number
-       float mutationRate = 0.01f;
+       float mutationRate = 0.015f;
        //Initializeing targetLength Variable to be the Length(Number of Character) of Phrase
        int targetLength = targetPhrase.length();
        //Boolean Variable which keeps track That is to Evolve another Generation or Not
@@ -47,33 +47,65 @@ class PhraseViewer{
 
 //Class Population manages the Dna Objects(Phrases) and Performs Various Operation on it
 class Population{
+    //Creates array of Dna Objects Which Basically consist of Phrases(Character Array)
     Dna[] population;
-    int numOfPop;
+    //Creating Variable size array as matingpool to select Pharases From
     ArrayList<Dna> matingPool;
-    int lengthOfPhrase;
-    int bestfitness;
-    int bestindex;
-    Dna BestPhrase;
+    //Keeps Track of Number of population(Phrases) to be Generated At a Time
+    static int numOfPop;
+    //Keeps Track of Number of Character in a Phrase
+    static int lengthOfPhrase;
+    //Keeps track of Best Fitness Recorded From All Phrases
+    static int bestfitness;
+    //Keeps Track of Index of Best Phrase(Phrase with Best Fitness)
+    static int bestindex;
+    //Keeps Track of Mutation Rate
     float MutationRate;
 
-
+    //Constructor for Initialization
     Population(String target,int length,int numberOfPopulation ,float mutationRate){
-       this.numOfPop = numberOfPopulation;
-       this.lengthOfPhrase = length;
-       this.MutationRate = mutationRate;
-       this.BestPhrase = new Dna(target, length);
+       //Initialization of number Of Population to be Stored
+       numOfPop = numberOfPopulation;
+       //Initialization of number of Character in tha Phrase
+       lengthOfPhrase = length;
+       //Initialization of mutation Rate
+       MutationRate = mutationRate;
+       //Generating Population of Phrases according to Population number(numOfPop) has Specified
        population = new Dna[numberOfPopulation];
 
+       //iTERATION OVER tHE ENTIRE Population
        for (int i=0 ; i < this.population.length ; i++){
+          //Creating the Dna Objects(Phrases) and adding it to the Population List
           this.population[i] = new Dna(target,length);
         }
     }
 
 
+    //This Function Shows the Best Generated Phrase of Current Generation
+    void ShowBest(){
+         //Setting initial Value Of Best Fitness
+         bestfitness = -1;
+         //Setting initial Value of Best Phrase index in the Population of Current Generation
+         bestindex = -1;
+
+         //Iterating over Entire Population to Find the Best Phrase Generated in Current Generation
+         for (int i =0 ;i < numOfPop ; i++){
+              if (bestfitness < this.population[i].fitness){
+                    bestfitness = this.population[i].fitness;
+                    bestindex = i;
+              }
+         }
+         //Prints the Best Phrases
+         System.out.println(this.population[this.bestindex].phrase);
+    }
+
+
+    //Function That Calculates Fitness Of Entire Population
     void CalcualateFitness(){
         for (int i=0 ; i < this.population.length ; i++ ){
              this.population[i].CalcFitness();
          }
+         //This Function Shows the Best Generated Phrase of Current Generation
          ShowBest();
     }
 
@@ -101,19 +133,6 @@ class Population{
     }
 
 
-    void ShowBest(){
-         bestfitness = 0;
-         this.bestindex = 0;
-
-         for (int i =0 ;i < this.population.length ; i++){
-              if (bestfitness < this.population[i].fitness){
-                    bestfitness = this.population[i].fitness;
-                    this.bestindex = i;
-                    this.BestPhrase.phrase = this.population[i].phrase;
-              }
-         }
-         System.out.println(this.population[this.bestindex].phrase);
-    }
 
 
     void mutation(){
