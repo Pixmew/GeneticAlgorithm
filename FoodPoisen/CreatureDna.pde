@@ -6,15 +6,21 @@ class CreatureDna{
   float maxforce;
   float maxspeed;
   
+  float foodattract;
+  float poisenattract;
+  float health = 1000;
+  
   CreatureDna(){
     location = new PVector(random(width),random(height));
     velocity = new PVector(0,-2);
     acceleration = new PVector(0,0);
     maxforce = 0.1;
     maxspeed = 5;
+    foodattract = random(10);
+    poisenattract = random(10);
   }
   
-  void display(){
+  void Display(){
     float theta = this.velocity.heading() + PI / 2;
     fill(127);
     stroke(200);
@@ -28,6 +34,8 @@ class CreatureDna{
     vertex(this.r, this.r * 2);
     endShape(CLOSE);
     pop();
+    health--;
+    System.out.println(health);
   }
   
   void update(){ 
@@ -48,20 +56,27 @@ class CreatureDna{
  }
  
  
- void eat(PVector[] food){
+ void eat(Eatable[] food){
    float record = 99999999;
    int index = -1;
    for(int i=0 ; i< food.length ; i++){
-     float dist = dist(food[i].x,food[i].y,this.location.x,this.location.y);
+     float dist = dist(food[i].location.x,food[i].location.y,this.location.x,this.location.y);
      if (dist < record){
        record = dist;
        index = i;
      }    
    }
    if(record < 5){
-       food[index] = new PVector(random(width),random(height));
+       food[index].location = new PVector(random(width),random(height));
+       if (food[index].food){
+         this.health += 100;
+       }
+       else{
+        this.health -= 100; 
+       }
      } 
-  this.seek(food[index]);
+     
+  this.seek(food[index].location);
  }
   
 }
