@@ -1,11 +1,14 @@
-CreatureDna bird;
+CreatureDna[] bird;
 Eatable[] food;
 void setup(){
   size(600,600);
   food = new Eatable[20];
-  bird = new CreatureDna();
+  bird = new CreatureDna[4];
   for(int i = 0 ; i < food.length ; i++){
     food[i] = new Eatable();
+  }
+  for(int i =0 ; i < bird.length ; i++){
+    bird[i] = new CreatureDna();
   }
 }
 
@@ -20,8 +23,10 @@ void draw(){
      food[i].foodDisplay(false); 
     }
   }
-  
-  bird.Display();
-  bird.update();
-  bird.eat(food);
+  for(int i = 0 ;  i < bird.length ; i++){
+    
+  bird[i].Display();
+  bird[i].update();
+  bird[i].eat(food);
+}
 }
